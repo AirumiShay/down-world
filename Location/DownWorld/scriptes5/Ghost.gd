@@ -1,0 +1,21 @@
+extends KinematicBody2D
+
+
+var motion = Vector2()
+var wait_count = 100 #замедление мобов
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass
+func _physics_process(delta):	
+#	var Player = get_parent().get_parent().get_node("Player")
+	
+	position += (GlobalVar.Player.position - position)/wait_count
+#	look_at(Player.position)
+
+	move_and_collide(motion)
+
+
+func _on_Area2D_body_entered(body):
+	if "Bullet" in body.name:
+		queue_free()
